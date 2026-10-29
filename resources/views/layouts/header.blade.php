@@ -9,8 +9,8 @@
                     <a href="{{ route('index') }}" class="text-slate-900 text-sm font-medium">Home</a>
                     <a href="index.html#features" class="text-slate-500 hover:text-slate-900 transition-colors text-sm font-medium">Features</a>
                     <a href="index.html#roles" class="text-slate-500 hover:text-slate-900 transition-colors text-sm font-medium">Who it is for</a>
-                    <a href="contact.html" class="text-slate-500 hover:text-slate-900 transition-colors text-sm font-medium">Contact us</a>
-                    <a href="contact-list.html" class="text-slate-500 hover:text-slate-900 transition-colors text-sm font-medium">Contact list</a>
+                    <a href="{{ route('contact')}}" class="text-slate-500 hover:text-slate-900 transition-colors text-sm font-medium">Contact us</a>
+                    <a href="{{ route('contactlist')}}" class="text-slate-500 hover:text-slate-900 transition-colors text-sm font-medium">Contact list</a>
                     <a href="login.html" class="px-5 py-2.5 border border-slate-200 text-slate-900 rounded-lg font-medium text-sm hover:border-[#2563eb]/40">Sign in</a>
                     <a href="register.html" class="px-5 py-2.5 bg-[#2563eb] text-white rounded-lg font-medium text-sm hover:bg-[#1d4ed8] glow-blue">Create account</a>
                 </div>
@@ -27,8 +27,8 @@
                             <a href="{{ route('index') }}" aria-current="page" class="rounded-lg px-3 py-2 text-sm font-medium text-[#2563eb] hover:bg-blue-50">Home</a>
                             <a href="index.html#features" class="rounded-lg px-3 py-2 text-sm text-slate-700 hover:bg-slate-50">Features</a>
                             <a href="index.html#roles" class="rounded-lg px-3 py-2 text-sm text-slate-700 hover:bg-slate-50">Who it is for</a>
-                            <a href="contact.html" class="rounded-lg px-3 py-2 text-sm text-slate-700 hover:bg-slate-50">Contact us</a>
-                            <a href="contact-list.html" class="rounded-lg px-3 py-2 text-sm text-slate-700 hover:bg-slate-50">Contact list</a>
+                            <a href="{{ route('contact')}}" class="rounded-lg px-3 py-2 text-sm text-slate-700 hover:bg-slate-50">Contact us</a>
+                            <a href="{{ route('contactlist')}}" class="rounded-lg px-3 py-2 text-sm text-slate-700 hover:bg-slate-50">Contact list</a>
                             <a href="login.html" class="rounded-lg px-3 py-2 text-sm text-slate-700 hover:bg-slate-50">Sign in</a>
                             <a href="register.html" class="mt-1 rounded-lg bg-[#2563eb] px-3 py-2 text-center text-sm font-medium text-white hover:bg-[#1d4ed8]">Create account</a>
                         </div>

@@ -11,8 +11,8 @@
                     <a href="index.html#roles" class="text-slate-500 hover:text-slate-900 transition-colors text-sm font-medium">Who it is for</a>
                     <a href="{{ route('contact')}}" class="text-slate-500 hover:text-slate-900 transition-colors text-sm font-medium">Contact us</a>
                     <a href="{{ route('contactlist')}}" class="text-slate-500 hover:text-slate-900 transition-colors text-sm font-medium">Contact list</a>
-                    <a href="login.html" class="px-5 py-2.5 border border-slate-200 text-slate-900 rounded-lg font-medium text-sm hover:border-[#2563eb]/40">Sign in</a>
-                    <a href="register.html" class="px-5 py-2.5 bg-[#2563eb] text-white rounded-lg font-medium text-sm hover:bg-[#1d4ed8] glow-blue">Create account</a>
+                    <a href="{{ route('login')}}" class="px-5 py-2.5 border border-slate-200 text-slate-900 rounded-lg font-medium text-sm hover:border-[#2563eb]/40">Sign in</a>
+                    <a href="{{ route('register')}}" class="px-5 py-2.5 bg-[#2563eb] text-white rounded-lg font-medium text-sm hover:bg-[#1d4ed8] glow-blue">Create account</a>
                 </div>
 
                 <!-- Start details -->
@@ -29,8 +29,8 @@
                             <a href="index.html#roles" class="rounded-lg px-3 py-2 text-sm text-slate-700 hover:bg-slate-50">Who it is for</a>
                             <a href="{{ route('contact')}}" class="rounded-lg px-3 py-2 text-sm text-slate-700 hover:bg-slate-50">Contact us</a>
                             <a href="{{ route('contactlist')}}" class="rounded-lg px-3 py-2 text-sm text-slate-700 hover:bg-slate-50">Contact list</a>
-                            <a href="login.html" class="rounded-lg px-3 py-2 text-sm text-slate-700 hover:bg-slate-50">Sign in</a>
-                            <a href="register.html" class="mt-1 rounded-lg bg-[#2563eb] px-3 py-2 text-center text-sm font-medium text-white hover:bg-[#1d4ed8]">Create account</a>
+                            <a href="{{ route('login')}}" class="rounded-lg px-3 py-2 text-sm text-slate-700 hover:bg-slate-50">Sign in</a>
+                            <a href="{{ route('register')}}" class="mt-1 rounded-lg bg-[#2563eb] px-3 py-2 text-center text-sm font-medium text-white hover:bg-[#1d4ed8]">Create account</a>
                         </div>
                     </nav>
                     <!-- End nav -->

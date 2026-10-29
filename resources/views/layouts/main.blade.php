@@ -22,7 +22,7 @@
 <!-- End head -->
 
 <!-- Start body -->
-<body class="bg-white text-slate-900 font-sans antialiased" data-root="" data-page="landing">
+<body class="bg-white text-slate-900 font-sans antialiased" data-root="" data-page="@yield('page', 'landing')">
 
 @yield('content')
     <script src="assets/js/store.js"></script>

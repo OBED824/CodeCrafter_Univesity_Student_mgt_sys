@@ -44,6 +44,40 @@ test('users can log out', function () {
     $this->assertGuest();
 });
 
+test('a new student can register and is logged in', function () {
+    $this->post('/register', [
+        'first_name' => 'New',
+        'last_name' => 'Student',
+        'email' => 'new.student@example.com',
+        'gender' => 'female',
+        'program' => 'BSc Computer Science',
+        'password' => 'password123',
+        'password_confirmation' => 'password123',
+    ])->assertRedirect(route('student.dashboard'));
+
+    $user = User::where('email', 'new.student@example.com')->first();
+    expect($user)->not->toBeNull()
+        ->and($user->hasRole('student'))->toBeTrue()
+        ->and($user->student)->not->toBeNull()
+        ->and($user->student->student_number)->toStartWith('SCS-214-');
+
+    $this->assertAuthenticatedAs($user);
+});
+
+test('registration requires a unique email', function () {
+    $existing = User::factory()->create();
+
+    $this->post('/register', [
+        'first_name' => 'Dup',
+        'last_name' => 'Email',
+        'email' => $existing->email,
+        'gender' => 'male',
+        'program' => 'BSc',
+        'password' => 'password123',
+        'password_confirmation' => 'password123',
+    ])->assertSessionHasErrors('email');
+});
+
 test('a student cannot access the administrator dashboard', function () {
     $user = User::factory()->create();
     $user->assignRole('student');

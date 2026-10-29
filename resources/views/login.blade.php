@@ -48,15 +48,6 @@
                 </div>
                 <button type="submit" class="w-full py-3 px-4 rounded-xl text-sm font-semibold text-white bg-[#2563eb] hover:bg-[#1d4ed8]">Sign in</button>
             </form>
-
-            <div class="mt-6 pt-6 border-t border-slate-200">
-                <p class="text-xs text-slate-500 mb-3 text-center">Sample accounts (password: <strong>password123</strong>)</p>
-                <div class="grid grid-cols-3 gap-2 text-center text-xs text-slate-600">
-                    <div class="px-2 py-2 rounded-lg border border-slate-200 bg-white">Student<br>student@example.com</div>
-                    <div class="px-2 py-2 rounded-lg border border-slate-200 bg-white">Lecturer<br>lecturer@example.com</div>
-                    <div class="px-2 py-2 rounded-lg border border-slate-200 bg-white">Admin<br>admin@example.com</div>
-                </div>
-            </div>
         </div>
     </div>
 </div>

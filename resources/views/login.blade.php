@@ -8,7 +8,7 @@
     <div class="w-full max-w-md">
         <div class="flex justify-center mb-8">
             <a href="{{ route('index') }}" class="inline-flex flex-col items-center gap-3">
-                <img src="assets/img/logo.jpeg" alt="Student Management System" class="h-16 w-16">
+                <img src="{{ asset('assets/img/logo.jpeg') }}" alt="Student Management System" class="h-16 w-16">
                 <span class="text-sm font-semibold text-slate-900">Student Management System</span>
             </a>
         </div>

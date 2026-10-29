@@ -13,7 +13,7 @@
                     <h1 class="text-3xl sm:text-4xl font-bold leading-tight">Contact list</h1>
                     <p class="text-sm sm:text-base text-slate-500 mt-3 max-w-xl">Messages sent from the contact form.</p>
                 </div>
-                <a href="contact.html" class="inline-flex items-center justify-center gap-2 px-5 py-2.5 border border-slate-200 text-slate-900 rounded-lg font-medium text-sm hover:border-[#2563eb]/40">
+                <a href="{{ route('contact') }}" class="inline-flex items-center justify-center gap-2 px-5 py-2.5 border border-slate-200 text-slate-900 rounded-lg font-medium text-sm hover:border-[#2563eb]/40">
                     <i data-lucide="mail" class="w-4 h-4"></i>
                     New message
                 </a>
@@ -40,11 +40,11 @@
                                 <td class="py-3 px-4 text-sm text-slate-500 max-w-xs">{{$contacts->message}}</td>
                                 <td class="py-3 px-4">
                                     <div class="flex items-center justify-center gap-2">
-                                        <a href="contact.html" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium text-[#2563eb] bg-blue-50 border border-blue-100 hover:bg-blue-100">
+                                        <a href="{{ route('contact') }}" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium text-[#2563eb] bg-blue-50 border border-blue-100 hover:bg-blue-100">
                                             <i data-lucide="eye" class="w-3.5 h-3.5"></i>
                                             View
                                         </a>
-                                        <a href="contact.html" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium text-[#d97706] bg-amber-50 border border-amber-100 hover:bg-amber-100">
+                                        <a href="{{ route('contact') }}" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium text-[#d97706] bg-amber-50 border border-amber-100 hover:bg-amber-100">
                                             <i data-lucide="edit" class="w-3.5 h-3.5"></i>
                                             Edit
                                         </a>

@@ -3,7 +3,7 @@
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
                 <div>
                     <div class="flex items-center gap-3 mb-6">
-                        <img src="assets/img/logo.jpeg" alt="Student Management System" class="h-12 w-12">
+                        <img src="{{ asset('assets/img/logo.jpeg') }}" alt="Student Management System" class="h-12 w-12">
                         <div>
                             <p class="text-base font-semibold text-white">Student Management System</p>
                             <p class="text-[11px] text-slate-400">Campus operations simplified</p>
@@ -14,10 +14,10 @@
                 <div>
                     <h3 class="text-sm font-semibold uppercase tracking-[0.2em] text-slate-300 mb-4">Quick links</h3>
                     <ul class="space-y-3 text-sm text-slate-400">
-                        <li><a href="index.html" class="hover:text-white transition-colors">Home</a></li>
-                        <li><a href="index.html#features" class="hover:text-white transition-colors">Features</a></li>
-                        <li><a href="index.html#roles" class="hover:text-white transition-colors">Who it is for</a></li>
-                        <li><a href="contact.html" class="hover:text-white transition-colors">Contact</a></li>
+                        <li><a href="{{ route('index') }}" class="hover:text-white transition-colors">Home</a></li>
+                        <li><a href="{{ route('index') }}#features" class="hover:text-white transition-colors">Features</a></li>
+                        <li><a href="{{ route('index') }}#roles" class="hover:text-white transition-colors">Who it is for</a></li>
+                        <li><a href="{{ route('contact') }}" class="hover:text-white transition-colors">Contact</a></li>
                     </ul>
                 </div>
                 <div>

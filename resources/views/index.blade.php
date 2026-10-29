@@ -14,8 +14,8 @@
                     <h1 class="text-3xl sm:text-4xl lg:text-5xl font-bold mb-5 leading-tight">Every student record,<br><span class="text-gradient">one clear place.</span></h1>
                     <p class="text-sm sm:text-base text-slate-500 max-w-xl mx-auto lg:mx-0 mb-6 leading-relaxed">Manage enrolment, attendance, results and fees. Students see their own progress, lecturers record marks, and the Registry keeps it all in order.</p>
                     <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
-                        <a href="register.html" class="group flex items-center gap-2 px-8 py-4 bg-[#2563eb] text-white rounded-xl font-semibold text-sm hover:bg-[#1d4ed8] glow-blue w-full sm:w-auto justify-center">Create student account<i data-lucide="arrow-right" class="w-5 h-5 group-hover:translate-x-1 transition-transform"></i></a>
-                        <a href="login.html" class="flex items-center justify-center gap-2 px-8 py-4 border border-slate-200 bg-white rounded-xl font-semibold text-sm hover:border-[#2563eb]/40 w-full sm:w-auto">Sign in</a>
+                        <a href="{{ route('register') }}" class="group flex items-center gap-2 px-8 py-4 bg-[#2563eb] text-white rounded-xl font-semibold text-sm hover:bg-[#1d4ed8] glow-blue w-full sm:w-auto justify-center">Create student account<i data-lucide="arrow-right" class="w-5 h-5 group-hover:translate-x-1 transition-transform"></i></a>
+                        <a href="{{ route('login') }}" class="flex items-center justify-center gap-2 px-8 py-4 border border-slate-200 bg-white rounded-xl font-semibold text-sm hover:border-[#2563eb]/40 w-full sm:w-auto">Sign in</a>
                     </div>
                 </div>
                 <div class="relative w-full max-w-xl mx-auto">

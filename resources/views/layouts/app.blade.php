@@ -31,8 +31,17 @@
     <header class="bg-white border-b border-slate-200">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 flex items-center justify-between h-16">
             <div class="flex items-center gap-3">
-                <img src="{{ asset('assets/img/logo.jpeg') }}" alt="Logo" class="h-9 w-9 rounded">
-                <p class="font-semibold text-sm hidden sm:block">Student Management System</p>
+                @auth
+                    <a href="{{ auth()->user()->hasRole('administrator') ? route('admin.dashboard') : (auth()->user()->hasRole('lecturer') ? route('lecturer.dashboard') : route('student.dashboard')) }}" class="flex items-center gap-3">
+                        <img src="{{ asset('assets/img/logo.jpeg') }}" alt="Logo" class="h-9 w-9 rounded">
+                        <p class="font-semibold text-sm hidden sm:block">Student Management System</p>
+                    </a>
+                @else
+                    <a href="{{ route('index') }}" class="flex items-center gap-3">
+                        <img src="{{ asset('assets/img/logo.jpeg') }}" alt="Logo" class="h-9 w-9 rounded">
+                        <p class="font-semibold text-sm hidden sm:block">Student Management System</p>
+                    </a>
+                @endauth
             </div>
             <div class="flex items-center gap-4">
                 @auth
@@ -48,6 +57,24 @@
             </div>
         </div>
     </header>
+
+    <!-- Mobile navigation (the sidebar below is desktop-only) -->
+    @auth
+        <nav class="md:hidden bg-white border-b border-slate-200 px-4 py-2 flex gap-2 overflow-x-auto text-sm">
+            @if (auth()->user()->hasRole('administrator'))
+                <a href="{{ route('admin.dashboard') }}" class="btn-outline whitespace-nowrap">Dashboard</a>
+                <a href="{{ route('admin.students.index') }}" class="btn-outline whitespace-nowrap">Students</a>
+                <a href="{{ route('admin.courses.index') }}" class="btn-outline whitespace-nowrap">Courses</a>
+            @elseif (auth()->user()->hasRole('lecturer'))
+                <a href="{{ route('lecturer.dashboard') }}" class="btn-outline whitespace-nowrap">Dashboard</a>
+                <a href="{{ route('lecturer.courses') }}" class="btn-outline whitespace-nowrap">My Courses</a>
+            @elseif (auth()->user()->hasRole('student'))
+                <a href="{{ route('student.dashboard') }}" class="btn-outline whitespace-nowrap">Dashboard</a>
+                <a href="{{ route('student.courses') }}" class="btn-outline whitespace-nowrap">Available Courses</a>
+                <a href="{{ route('student.registrations.index') }}" class="btn-outline whitespace-nowrap">My Registrations</a>
+            @endif
+        </nav>
+    @endauth
 
     <div class="flex-1 flex">
         <!-- Sidebar: links depend on the logged-in user's role -->

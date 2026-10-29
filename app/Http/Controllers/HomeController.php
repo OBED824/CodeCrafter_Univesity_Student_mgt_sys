@@ -2,16 +2,25 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Course;
+use App\Models\Lecturer;
+use App\Models\Student;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display the public landing page with live campus stats.
      */
     public function index()
     {
-        return view('index');
+        return view('index', [
+            'studentCount' => Student::count(),
+            'courseCount' => Course::count(),
+            'departmentCount' => DB::table('lecturers')->whereNotNull('department')->distinct()->count('department'),
+            'lecturerCount' => Lecturer::count(),
+        ]);
     }
 
     public function login()
@@ -23,6 +32,7 @@ class HomeController extends Controller
     {
         return view('register');
     }
+
     /**
      * Show the form for creating a new resource.
      */

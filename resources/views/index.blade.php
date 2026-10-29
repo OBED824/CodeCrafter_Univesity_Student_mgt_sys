@@ -21,10 +21,10 @@
                 <div class="relative w-full max-w-xl mx-auto">
                     <div class="absolute inset-0 rounded-[2rem] bg-gradient-to-br from-blue-200/50 via-sky-100/40 to-amber-200/30 blur-3xl"></div>
                     <div class="relative grid grid-cols-2 gap-4">
-                        <div class="stat-card rounded-3xl border border-slate-200 bg-white/90 p-6 shadow-xl backdrop-blur-sm"><p class="text-3xl font-bold text-[#2563eb] stat-number" data-stat="students">—</p><p class="text-sm text-slate-500 mt-1">Students</p></div>
-                        <div class="stat-card rounded-3xl border border-slate-200 bg-white/90 p-6 shadow-xl backdrop-blur-sm"><p class="text-3xl font-bold text-[#d97706] stat-number" data-stat="courses">—</p><p class="text-sm text-slate-500 mt-1">Course units</p></div>
-                        <div class="stat-card rounded-3xl border border-slate-200 bg-white/90 p-6 shadow-xl backdrop-blur-sm"><p class="text-3xl font-bold text-[#d97706] stat-number" data-stat="departments">—</p><p class="text-sm text-slate-500 mt-1">Departments</p></div>
-                        <div class="stat-card rounded-3xl border border-slate-200 bg-white/90 p-6 shadow-xl backdrop-blur-sm"><p class="text-3xl font-bold text-[#2563eb] stat-number" data-stat="lecturers">—</p><p class="text-sm text-slate-500 mt-1">Lecturers</p></div>
+                        <div class="stat-card rounded-3xl border border-slate-200 bg-white/90 p-6 shadow-xl backdrop-blur-sm"><div class="flex items-center justify-between mb-3"><p class="text-3xl font-bold text-[#2563eb] stat-number" data-stat="students" data-value="{{ $studentCount }}">{{ $studentCount }}</p><span class="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-50"><i data-lucide="graduation-cap" class="w-5 h-5 text-[#2563eb]"></i></span></div><p class="text-sm text-slate-500 mt-1">Students</p></div>
+                        <div class="stat-card rounded-3xl border border-slate-200 bg-white/90 p-6 shadow-xl backdrop-blur-sm"><div class="flex items-center justify-between mb-3"><p class="text-3xl font-bold text-[#d97706] stat-number" data-stat="courses" data-value="{{ $courseCount }}">{{ $courseCount }}</p><span class="flex h-10 w-10 items-center justify-center rounded-xl bg-amber-50"><i data-lucide="book-open" class="w-5 h-5 text-[#d97706]"></i></span></div><p class="text-sm text-slate-500 mt-1">Course units</p></div>
+                        <div class="stat-card rounded-3xl border border-slate-200 bg-white/90 p-6 shadow-xl backdrop-blur-sm"><div class="flex items-center justify-between mb-3"><p class="text-3xl font-bold text-[#d97706] stat-number" data-stat="departments" data-value="{{ $departmentCount }}">{{ $departmentCount }}</p><span class="flex h-10 w-10 items-center justify-center rounded-xl bg-amber-50"><i data-lucide="building-2" class="w-5 h-5 text-[#d97706]"></i></span></div><p class="text-sm text-slate-500 mt-1">Departments</p></div>
+                        <div class="stat-card rounded-3xl border border-slate-200 bg-white/90 p-6 shadow-xl backdrop-blur-sm"><div class="flex items-center justify-between mb-3"><p class="text-3xl font-bold text-[#2563eb] stat-number" data-stat="lecturers" data-value="{{ $lecturerCount }}">{{ $lecturerCount }}</p><span class="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-50"><i data-lucide="presentation" class="w-5 h-5 text-[#2563eb]"></i></span></div><p class="text-sm text-slate-500 mt-1">Lecturers</p></div>
                         <div class="col-span-2 rounded-3xl border border-slate-200 bg-slate-950 text-white p-5 shadow-2xl hero-panel">
                             <div class="flex items-center justify-between mb-4">
                                 <div class="flex items-center gap-2 text-sm text-slate-200"><span class="inline-flex h-2.5 w-2.5 rounded-full bg-emerald-400 animate-pulse"></span>Live campus pulse</div>
@@ -64,6 +64,47 @@
 @include('layouts.footer')
     <!-- End footer -->
 
+@endsection
+
+@section('scripts')
+    <script>
+        // Count each stat card up from 0 to its real number when it appears on screen.
+        (function () {
+            const counters = document.querySelectorAll('[data-stat]');
+            const duration = 800;
+
+            const countUp = (el) => {
+                const target = Number(el.dataset.value || 0);
+                const start = performance.now();
+                const step = (now) => {
+                    const progress = Math.min((now - start) / duration, 1);
+                    const eased = 1 - Math.pow(1 - progress, 3);
+                    el.textContent = Math.round(target * eased);
+                    if (progress < 1) {
+                        requestAnimationFrame(step);
+                    }
+                };
+                requestAnimationFrame(step);
+                // Safety net: the animation is paused on hidden tabs, so make
+                // sure the real number is shown even if the frames never run.
+                setTimeout(() => { el.textContent = target; }, duration + 100);
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        countUp(entry.target);
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.2 });
+
+            counters.forEach((el) => {
+                el.textContent = '0';
+                observer.observe(el);
+            });
+        })();
+    </script>
 @endsection
 <!-- End html -->
 

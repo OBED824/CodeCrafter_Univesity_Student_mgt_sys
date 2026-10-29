@@ -25,7 +25,13 @@
 <body class="bg-white text-slate-900 font-sans antialiased" data-root="" data-page="@yield('page', 'landing')">
 
 @yield('content')
+<script>
+    if (window.lucide) {
+        lucide.createIcons();
+    }
+</script>
 <script src="{{ asset('assets/js/theme.js') }}"></script>
+@yield('scripts')
 </body>
 <!-- End body -->
 

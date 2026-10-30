@@ -148,7 +148,6 @@ routes/web.php         public, auth and role-protected route groups
 
 ## GitHub Collaboration Workflow
 
-This is a group project. Follow this branching workflow:
 
 - `main` — stable production code (no direct feature commits).
 - `develop` — integration branch.
@@ -166,16 +165,9 @@ Steps for each member:
 
 ## Screenshots
 
-> Add screenshots here once the UI is finalised (e.g. login, admin students list, admin courses list, student registration page, lecturer dashboard).
-
 ```
-docs/screenshots/login.png
-docs/screenshots/admin-students.png
-docs/screenshots/admin-courses.png
-docs/screenshots/student-registration.png
-docs/screenshots/lecturer-dashboard.png
+![alt text](<Screenshot 2026-10-30 125349.png>) ![alt text](<Screenshot 2026-10-30 125428.png>) ![alt text](<Screenshot 2026-10-30 125256.png>)
 ```
 
-## License
 
-Created for academic coursework.
+![alt text](student.png) ![alt text](Admin.png) ![alt text](lecturer.png)

@@ -3,15 +3,17 @@
             <div class="flex items-center justify-between h-20">
                 <a href="{{ route('index') }}" class="flex items-center gap-3">
                     <img src="{{ asset('assets/img/logo.jpeg') }}" alt="Student Management System" class="h-11 w-11">
-                    <div class="hidden sm:block"><p class="text-sm font-semibold text-slate-900 leading-tight">Student Management System</p><p class="text-[11px] text-slate-500">Records, results and fees in one place</p></div>
+                    <div class="hidden sm:block"><p class="text-sm font-semibold text-slate-900 leading-tight">Student Management System</p><p class="text-[11px] text-slate-500">Records, courses and registrations</p></div>
                 </a>
                 <div class="hidden md:flex items-center gap-8">
                     <a href="{{ route('index') }}" class="text-slate-900 text-sm font-medium">Home</a>
                     <a href="{{ route('index') }}#features" class="text-slate-500 hover:text-slate-900 transition-colors text-sm font-medium">Features</a>
                     <a href="{{ route('index') }}#roles" class="text-slate-500 hover:text-slate-900 transition-colors text-sm font-medium">Who it is for</a>
                     <a href="{{ route('contact')}}" class="text-slate-500 hover:text-slate-900 transition-colors text-sm font-medium">Contact us</a>
-                    <a href="{{ route('contactlist')}}" class="text-slate-500 hover:text-slate-900 transition-colors text-sm font-medium">Contact list</a>
                     @auth
+                        @if (auth()->user()->hasRole('administrator'))
+                            <a href="{{ route('contactlist') }}" class="text-slate-500 hover:text-slate-900 transition-colors text-sm font-medium">Contact inbox</a>
+                        @endif
                         <a href="{{ auth()->user()->hasRole('administrator') ? route('admin.dashboard') : (auth()->user()->hasRole('lecturer') ? route('lecturer.dashboard') : route('student.dashboard')) }}" class="px-5 py-2.5 bg-[#2563eb] text-white rounded-lg font-medium text-sm hover:bg-[#1d4ed8]">My Dashboard</a>
                     @else
                         <a href="{{ route('login')}}" class="px-5 py-2.5 border border-slate-200 text-slate-900 rounded-lg font-medium text-sm hover:border-[#2563eb]/40">Sign in</a>
@@ -32,8 +34,10 @@
                             <a href="{{ route('index') }}#features" class="rounded-lg px-3 py-2 text-sm text-slate-700 hover:bg-slate-50">Features</a>
                             <a href="{{ route('index') }}#roles" class="rounded-lg px-3 py-2 text-sm text-slate-700 hover:bg-slate-50">Who it is for</a>
                             <a href="{{ route('contact')}}" class="rounded-lg px-3 py-2 text-sm text-slate-700 hover:bg-slate-50">Contact us</a>
-                            <a href="{{ route('contactlist')}}" class="rounded-lg px-3 py-2 text-sm text-slate-700 hover:bg-slate-50">Contact list</a>
                             @auth
+                                @if (auth()->user()->hasRole('administrator'))
+                                    <a href="{{ route('contactlist') }}" class="rounded-lg px-3 py-2 text-sm text-slate-700 hover:bg-slate-50">Contact inbox</a>
+                                @endif
                                 <a href="{{ auth()->user()->hasRole('administrator') ? route('admin.dashboard') : (auth()->user()->hasRole('lecturer') ? route('lecturer.dashboard') : route('student.dashboard')) }}" class="mt-1 rounded-lg bg-[#2563eb] px-3 py-2 text-center text-sm font-medium text-white hover:bg-[#1d4ed8]">My Dashboard</a>
                             @else
                                 <a href="{{ route('login')}}" class="rounded-lg px-3 py-2 text-sm text-slate-700 hover:bg-slate-50">Sign in</a>

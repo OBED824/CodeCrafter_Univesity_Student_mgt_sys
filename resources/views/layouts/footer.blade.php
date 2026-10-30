@@ -9,7 +9,7 @@
                             <p class="text-[11px] text-slate-400">Campus operations simplified</p>
                         </div>
                     </div>
-                    <p class="text-sm text-slate-400 leading-relaxed max-w-sm">A modern digital hub for registration, results, attendance, fees and academic communication across the campus.</p>
+                    <p class="text-sm text-slate-400 leading-relaxed max-w-sm">A focused portal for student records, course administration, course registration and role-based academic workflows.</p>
                 </div>
                 <div>
                     <h3 class="text-sm font-semibold uppercase tracking-[0.2em] text-slate-300 mb-4">Quick links</h3>

@@ -1,3 +1,14 @@
+# LIST OF PARTICIPATES/GROUP MEMBERS
+SSENSALO OBED              2400720223
+NAMAGEMBE JAZIRAH          2400708933
+MURUNGI BETH               2400707357
+ATUGONZA AIDAH             2400700274
+KATASI FLORENCE MWEBE      2400705435
+
+
+
+
+
 # Student Management System
 
 A web-based **Student Management System** built with **Laravel 12** and **MySQL** for managing students, courses, lecturers, course registrations and role-based user access. It provides three distinct areas — **Administrator**, **Lecturer** and **Student** — each with its own dashboard, navigation and permissions.

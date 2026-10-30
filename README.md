@@ -146,22 +146,6 @@ routes/web.php         public, auth and role-protected route groups
 - `Course` **belongsToMany** `Student` (through `course_registrations`).
 - `CourseRegistration` **belongsTo** both `Student` and `Course` — it stores registration info (status, date) and the composite unique index on `(student_id, course_id)` blocks duplicates.
 
-## GitHub Collaboration Workflow
-
-
-- `main` — stable production code (no direct feature commits).
-- `develop` — integration branch.
-- `feature/<area>` — one branch per member/feature (e.g. `feature/student-management`, `feature/course-management`, `feature/relationships`, `feature/authentication`, `feature/registrations`, `feature/ui`).
-
-Steps for each member:
-
-1. Branch off `develop`: `git checkout -b feature/your-area`.
-2. Make focused changes and commit with meaningful messages.
-3. Push: `git push -u origin feature/your-area`.
-4. Open a **Pull Request into `develop`**.
-5. Have a teammate review and test the change.
-6. Merge into `develop` after approval and run the tests again.
-7. When the integrated version is stable and fully tested, merge `develop` into `main`.
 
 ## Screenshots
 

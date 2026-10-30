@@ -155,3 +155,4 @@ routes/web.php         public, auth and role-protected route groups
 
 
 ![alt text](student.png) ![alt text](Admin.png) ![alt text](lecturer.png)
+![alt text](login.png) ![alt text](<Screenshot 2026-10-30 125428-1.png>) ![alt text](signin.png)

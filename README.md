@@ -95,7 +95,7 @@ All three demo accounts use the same password. **These are example accounts for 
 
 | Role | Email | Password |
 |------|-------|----------|
-| Administrator | `admin@example.com` | `password123` |
+| Administrator | `mosh@mubs.com` | `password123` |
 | Lecturer | `lecturer@example.com` | `password123` |
 | Student | `student@example.com` | `password123` |
 

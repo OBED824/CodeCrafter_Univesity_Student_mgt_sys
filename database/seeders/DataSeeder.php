@@ -17,7 +17,7 @@ use Illuminate\Database\Seeder;
  * and never creates duplicate records.
  *
  * Sample login credentials (documented in the README):
- *   admin@example.com    / password123  (administrator)
+ *   mosh@mubs.com        / password123  (administrator)
  *   lecturer@example.com / password123  (lecturer)
  *   student@example.com  / password123  (student)
  */
@@ -27,10 +27,21 @@ class DataSeeder extends Seeder
     {
         // --- Users + roles -----------------------------------------------
 
-        $adminUser = User::firstOrCreate(
-            ['email' => 'admin@example.com'],
-            ['name' => 'System Administrator', 'password' => 'password123'],
-        );
+        $adminUser = User::query()
+            ->whereIn('email', ['mosh@mubs.com', 'admin@example.com'])
+            ->orderByRaw("CASE WHEN email = 'mosh@mubs.com' THEN 0 ELSE 1 END")
+            ->first();
+
+        if ($adminUser === null) {
+            $adminUser = User::create([
+                'name' => 'System Administrator',
+                'email' => 'mosh@mubs.com',
+                'password' => 'password123',
+            ]);
+        } elseif ($adminUser->email !== 'mosh@mubs.com') {
+            $adminUser->update(['email' => 'mosh@mubs.com']);
+        }
+
         $adminUser->syncRoles(['administrator']);
 
         $lecturerUser = User::firstOrCreate(

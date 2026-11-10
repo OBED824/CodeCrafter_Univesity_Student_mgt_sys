@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\User;
+use Database\Seeders\DataSeeder;
 use Database\Seeders\RolePermissionSeeder;
 
 beforeEach(function () {
@@ -143,4 +144,38 @@ test('an administrator can access the administrator dashboard', function () {
     $user->assignRole('administrator');
 
     $this->actingAs($user)->get('/admin/dashboard')->assertOk();
+});
+
+test('the demo administrator can sign in with the configured email', function () {
+    $this->seed(DataSeeder::class);
+
+    $this->post(route('login.attempt'), [
+        'email' => 'mosh@mubs.com',
+        'password' => 'password123',
+        'role' => 'administrator',
+    ])->assertRedirect(route('admin.dashboard'));
+
+    $this->assertAuthenticatedAs(User::where('email', 'mosh@mubs.com')->firstOrFail());
+});
+
+test('seeding updates the legacy demo administrator email without changing its password', function () {
+    $legacyAdmin = User::factory()->create([
+        'name' => 'System Administrator',
+        'email' => 'admin@example.com',
+        'password' => 'existing-password',
+    ]);
+    $legacyAdmin->assignRole('administrator');
+
+    $this->seed(DataSeeder::class);
+
+    expect($legacyAdmin->fresh()->email)->toBe('mosh@mubs.com');
+    $this->assertDatabaseMissing('users', ['email' => 'admin@example.com']);
+
+    $this->post(route('login.attempt'), [
+        'email' => 'mosh@mubs.com',
+        'password' => 'existing-password',
+        'role' => 'administrator',
+    ])->assertRedirect(route('admin.dashboard'));
+
+    $this->assertAuthenticatedAs($legacyAdmin->fresh());
 });

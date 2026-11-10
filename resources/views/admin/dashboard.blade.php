@@ -5,6 +5,10 @@
 @section('content')
 <h1 class="text-2xl font-bold mb-6">Administrator Dashboard</h1>
 
+<div class="mb-6">
+    <a href="{{ route('admin.users.index') }}" class="btn-primary">Manage staff accounts</a>
+</div>
+
 <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
     <div class="card p-4">
         <p class="text-sm text-slate-500">Students</p>

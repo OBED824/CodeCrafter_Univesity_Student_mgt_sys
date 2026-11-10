@@ -63,6 +63,7 @@
         <nav class="md:hidden bg-white border-b border-slate-200 px-4 py-2 flex gap-2 overflow-x-auto text-sm">
             @if (auth()->user()->hasRole('administrator'))
                 <a href="{{ route('admin.dashboard') }}" class="btn-outline whitespace-nowrap">Dashboard</a>
+                <a href="{{ route('admin.users.index') }}" class="btn-outline whitespace-nowrap">Staff accounts</a>
                 <a href="{{ route('admin.students.index') }}" class="btn-outline whitespace-nowrap">Students</a>
                 <a href="{{ route('admin.courses.index') }}" class="btn-outline whitespace-nowrap">Courses</a>
             @elseif (auth()->user()->hasRole('lecturer'))
@@ -83,6 +84,7 @@
                 @if (auth()->user()->hasRole('administrator'))
                     <p class="text-xs font-semibold text-slate-400 uppercase px-3 pt-2 pb-1">Administrator</p>
                     <a href="{{ route('admin.dashboard') }}" class="nav-link">Dashboard</a>
+                    <a href="{{ route('admin.users.index') }}" class="nav-link">Staff accounts</a>
                     <a href="{{ route('admin.students.index') }}" class="nav-link">Students</a>
                     <a href="{{ route('admin.courses.index') }}" class="nav-link">Courses</a>
                 @elseif (auth()->user()->hasRole('lecturer'))

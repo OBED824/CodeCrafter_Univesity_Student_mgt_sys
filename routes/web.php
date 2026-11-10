@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminUserController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\CourseController;
@@ -30,6 +31,7 @@ Route::post('/logout', [AuthController::class, 'logout'])
 
 Route::middleware(['auth', 'role:administrator'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'admin'])->name('dashboard');
+    Route::resource('users', AdminUserController::class)->only(['index', 'create', 'store']);
     Route::resource('students', StudentController::class);
     Route::resource('courses', CourseController::class);
 });

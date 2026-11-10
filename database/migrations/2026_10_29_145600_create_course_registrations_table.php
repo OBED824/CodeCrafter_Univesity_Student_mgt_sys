@@ -22,7 +22,6 @@ return new class extends Migration
             $table->foreignId('student_id')->constrained()->cascadeOnDelete();
             $table->foreignId('course_id')->constrained()->cascadeOnDelete();
             $table->enum('status', ['pending', 'approved', 'withdrawn'])->default('approved');
-            $table->timestamp('registered_at')->nullable();
             $table->timestamps();
 
             // A student can never register for the same course twice.

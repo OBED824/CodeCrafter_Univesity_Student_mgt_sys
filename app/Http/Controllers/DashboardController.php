@@ -36,7 +36,7 @@ class DashboardController extends Controller
 
         return view('lecturer.dashboard', [
             'lecturer' => $lecturer,
-            'courses' => $lecturer?->courses()->withCount('students')->get() ?? collect(),
+            'courses' => $lecturer?->courses()->withCount('registeredStudents')->get() ?? collect(),
         ]);
     }
 

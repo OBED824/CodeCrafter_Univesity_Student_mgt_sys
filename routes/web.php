@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminRegistrationController;
 use App\Http\Controllers\AdminUserController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ContactController;
@@ -32,6 +33,11 @@ Route::post('/logout', [AuthController::class, 'logout'])
 Route::middleware(['auth', 'role:administrator'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'admin'])->name('dashboard');
     Route::resource('users', AdminUserController::class)->only(['index', 'create', 'store']);
+    Route::get('/registrations', [AdminRegistrationController::class, 'index'])->name('registrations.index');
+    Route::get('/registrations/create', [AdminRegistrationController::class, 'create'])->name('registrations.create');
+    Route::post('/registrations', [AdminRegistrationController::class, 'store'])->name('registrations.store');
+    Route::patch('/registrations/{registration}', [AdminRegistrationController::class, 'update'])->name('registrations.update');
+    Route::delete('/registrations/{registration}', [AdminRegistrationController::class, 'destroy'])->name('registrations.destroy');
     Route::resource('students', StudentController::class);
     Route::resource('courses', CourseController::class);
 });

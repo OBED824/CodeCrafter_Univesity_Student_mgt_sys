@@ -21,7 +21,7 @@ class LecturerController extends Controller
         $lecturer = auth()->user()->lecturer;
 
         return view('lecturer.courses', [
-            'courses' => $lecturer?->courses()->withCount('students')->orderBy('course_code')->get() ?? collect(),
+            'courses' => $lecturer?->courses()->withCount('registeredStudents')->orderBy('course_code')->get() ?? collect(),
         ]);
     }
 
@@ -33,7 +33,7 @@ class LecturerController extends Controller
 
         return view('lecturer.students', [
             'course' => $course->load('lecturer'),
-            'students' => $course->students()->orderBy('last_name')->get(),
+            'students' => $course->registeredStudents()->orderBy('last_name')->get(),
         ]);
     }
 }

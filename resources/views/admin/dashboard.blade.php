@@ -5,8 +5,11 @@
 @section('content')
 <h1 class="text-2xl font-bold mb-6">Administrator Dashboard</h1>
 
-<div class="mb-6">
-    <a href="{{ route('admin.users.index') }}" class="btn-primary">Manage staff accounts</a>
+<div class="mb-6 flex flex-wrap gap-2">
+    <a href="{{ route('admin.students.index') }}" class="btn-primary">Manage students</a>
+    <a href="{{ route('admin.courses.index') }}" class="btn-primary">Manage courses</a>
+    <a href="{{ route('admin.registrations.index') }}" class="btn-primary">Manage registrations</a>
+    <a href="{{ route('admin.users.index') }}" class="btn-primary">Manage user access</a>
 </div>
 
 <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">

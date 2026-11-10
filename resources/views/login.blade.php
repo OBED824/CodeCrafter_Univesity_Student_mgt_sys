@@ -15,8 +15,23 @@
         <div class="rounded-2xl border border-slate-200 bg-white p-6 sm:p-8">
             <div class="mb-6">
                 <h1 class="text-xl font-bold text-slate-900">Sign in</h1>
-                <p class="mt-1 text-sm text-slate-500">Use your campus email to see your courses and registrations.</p>
+                <p class="mt-1 text-sm text-slate-500">Choose your account type, then sign in with your campus email.</p>
             </div>
+
+            @php($selectedRole = old('role', request()->query('role')))
+
+            <fieldset class="mb-5">
+                <legend class="block text-sm font-medium text-slate-600 mb-2">Sign in as</legend>
+                <div class="grid grid-cols-3 gap-2">
+                    @foreach (['administrator' => 'Admin', 'lecturer' => 'Lecturer', 'student' => 'Student'] as $roleValue => $roleLabel)
+                        <a
+                            href="{{ route('login', ['role' => $roleValue]) }}"
+                            @if ($selectedRole === $roleValue) aria-current="page" @endif
+                            class="rounded-lg border px-2 py-2 text-center text-sm font-medium transition {{ $selectedRole === $roleValue ? 'border-[#2563eb] bg-blue-50 text-[#1d4ed8]' : 'border-slate-200 text-slate-600 hover:border-[#2563eb]' }}"
+                        >{{ $roleLabel }}</a>
+                    @endforeach
+                </div>
+            </fieldset>
 
             @if ($errors->any())
                 <div class="mb-4 text-sm rounded-lg border border-red-100 bg-red-50 text-red-700 px-3 py-2">
@@ -32,6 +47,9 @@
 
             <form method="POST" action="{{ route('login.attempt') }}" class="space-y-5">
                 @csrf
+                @if ($selectedRole)
+                    <input type="hidden" name="role" value="{{ $selectedRole }}">
+                @endif
                 <div>
                     <label for="email" class="block text-sm font-medium text-slate-600 mb-2">Campus email</label>
                     <input type="email" id="email" name="email" value="{{ old('email') }}" required autofocus placeholder="you@campus.ac.ug" class="input-field">

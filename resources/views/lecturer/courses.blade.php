@@ -17,7 +17,7 @@
                 <p class="text-sm text-slate-500">{{ $course->description }}</p>
             </div>
             <a href="{{ route('lecturer.courses.students', $course) }}" class="btn-outline whitespace-nowrap">
-                {{ $course->students_count }} registered student(s) →
+                {{ $course->registered_students_count }} registered student(s) →
             </a>
         </div>
     @endforeach

@@ -13,7 +13,9 @@
                 <p class="font-semibold">{{ $course->course_code }} — {{ $course->course_name }}</p>
                 <p class="text-sm text-slate-500">{{ $course->description }}</p>
             </div>
-            <span class="text-sm bg-slate-100 rounded-full px-3 py-1 whitespace-nowrap">{{ $course->students_count }} student(s)</span>
+            <a href="{{ route('lecturer.courses.students', $course) }}" class="text-sm bg-slate-100 rounded-full px-3 py-1 whitespace-nowrap hover:bg-blue-50">
+                {{ $course->registered_students_count }} registered student(s)
+            </a>
         </div>
     @empty
         <p class="text-slate-500">You have no assigned courses yet.</p>

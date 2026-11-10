@@ -51,6 +51,11 @@ class Course extends Model
             ->withTimestamps();
     }
 
+    public function registeredStudents(): BelongsToMany
+    {
+        return $this->students()->wherePivotIn('status', ['pending', 'approved']);
+    }
+
     /**
      * RELATIONSHIP: hasMany(CourseRegistration)
      *

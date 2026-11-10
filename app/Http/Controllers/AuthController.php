@@ -8,6 +8,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\Rule;
 use Illuminate\Validation\ValidationException;
 use Illuminate\View\View;
 
@@ -113,13 +114,28 @@ class AuthController extends Controller
         $credentials = $request->validate([
             'email' => ['required', 'email'],
             'password' => ['required'],
+            'role' => ['nullable', Rule::in(['administrator', 'lecturer', 'student'])],
         ]);
+        $selectedRole = $credentials['role'] ?? null;
+        unset($credentials['role']);
 
         if (Auth::attempt($credentials, $request->boolean('remember'))) {
+            $user = Auth::user();
+
+            if ($selectedRole !== null && ! $user->hasRole($selectedRole)) {
+                Auth::logout();
+                $request->session()->invalidate();
+                $request->session()->regenerateToken();
+
+                throw ValidationException::withMessages([
+                    'role' => 'This account does not have the selected role. Choose the correct sign-in option.',
+                ]);
+            }
+
             $request->session()->regenerate();
 
-            return redirect()->intended($this->dashboardUrlFor(Auth::user()))
-                ->with('status', 'Welcome back, '.Auth::user()->name.'!');
+            return redirect()->intended($this->dashboardUrlFor($user))
+                ->with('status', 'Welcome back, '.$user->name.'!');
         }
 
         // Failed login: show a clear error under the email field.

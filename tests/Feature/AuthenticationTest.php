@@ -25,6 +25,59 @@ test('users can log in with valid credentials', function () {
     $this->assertAuthenticatedAs($user);
 });
 
+test('login page offers administrator lecturer and student choices', function () {
+    $this->get(route('login', ['role' => 'lecturer']))
+        ->assertOk()
+        ->assertSee('Sign in as')
+        ->assertSee('Admin')
+        ->assertSee('Lecturer')
+        ->assertSee('Student')
+        ->assertSee('name="role" value="lecturer"', false);
+});
+
+test('users can sign in using their selected role', function (string $role, string $dashboard) {
+    $user = User::factory()->create();
+    $user->assignRole($role);
+
+    $this->post(route('login.attempt'), [
+        'email' => $user->email,
+        'password' => 'password',
+        'role' => $role,
+    ])->assertRedirect(route($dashboard));
+
+    $this->assertAuthenticatedAs($user);
+})->with([
+    'administrator' => ['administrator', 'admin.dashboard'],
+    'lecturer' => ['lecturer', 'lecturer.dashboard'],
+    'student' => ['student', 'student.dashboard'],
+]);
+
+test('users cannot sign in under a role they do not have', function () {
+    $user = User::factory()->create();
+    $user->assignRole('student');
+
+    $this->from(route('login', ['role' => 'administrator']))
+        ->post(route('login.attempt'), [
+            'email' => $user->email,
+            'password' => 'password',
+            'role' => 'administrator',
+        ])
+        ->assertSessionHasErrors('role')
+        ->assertRedirect(route('login', ['role' => 'administrator']));
+
+    $this->assertGuest();
+});
+
+test('users cannot submit a role outside the available role choices', function () {
+    $this->post(route('login.attempt'), [
+        'email' => 'user@example.com',
+        'password' => 'password',
+        'role' => 'superuser',
+    ])->assertSessionHasErrors('role');
+
+    $this->assertGuest();
+});
+
 test('users cannot log in with an invalid password', function () {
     $user = User::factory()->create();
 

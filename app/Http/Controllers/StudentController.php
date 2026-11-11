@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Student;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\Rule;
 use Illuminate\View\View;
 
 /**
@@ -52,14 +54,24 @@ class StudentController extends Controller
             'student_number' => ['required', 'string', 'max:50', 'unique:students,student_number'],
             'first_name' => ['required', 'string', 'max:100'],
             'last_name' => ['required', 'string', 'max:100'],
-            'email' => ['required', 'email', 'max:255', 'unique:students,email'],
+            'email' => ['required', 'email', 'max:255', 'unique:students,email', Rule::unique('users', 'email')],
             'phone' => ['nullable', 'string', 'max:20'],
             'gender' => ['required', 'in:male,female,other'],
             'date_of_birth' => ['nullable', 'date', 'before:today'],
             'program' => ['required', 'string', 'max:255'],
         ]);
 
-        Student::create($validated);
+        DB::transaction(function () use ($validated): void {
+            $student = Student::create([
+                ...$validated,
+                'status' => 'active',
+            ]);
+            $student->lifecycleEvents()->create([
+                'event_type' => 'admitted',
+                'new_program' => $student->program,
+                'new_status' => $student->status,
+            ]);
+        });
 
         return redirect()->route('admin.students.index')
             ->with('status', 'Student created successfully.');
@@ -67,7 +79,10 @@ class StudentController extends Controller
 
     public function show(Student $student): View
     {
-        $student->load('courses.lecturer');
+        $student->load([
+            'courses.lecturer',
+            'lifecycleEvents' => fn ($query) => $query->latest(),
+        ]);
 
         return view('admin.students.show', compact('student'));
     }
@@ -88,14 +103,46 @@ class StudentController extends Controller
             'student_number' => ['required', 'string', 'max:50', 'unique:students,student_number,'.$student->id],
             'first_name' => ['required', 'string', 'max:100'],
             'last_name' => ['required', 'string', 'max:100'],
-            'email' => ['required', 'email', 'max:255', 'unique:students,email,'.$student->id],
+            'email' => [
+                'required',
+                'email',
+                'max:255',
+                Rule::unique('students', 'email')->ignore($student->id),
+                Rule::unique('users', 'email')->ignore($student->user_id),
+            ],
             'phone' => ['nullable', 'string', 'max:20'],
             'gender' => ['required', 'in:male,female,other'],
             'date_of_birth' => ['nullable', 'date', 'before:today'],
             'program' => ['required', 'string', 'max:255'],
+            'status' => ['sometimes', 'required', 'in:active,transferred,graduated,withdrawn'],
+            'lifecycle_notes' => ['nullable', 'string', 'max:2000'],
         ]);
 
-        $student->update($validated);
+        $previousProgram = $student->program;
+        $previousStatus = $student->status;
+        DB::transaction(function () use ($validated, $student, $previousProgram, $previousStatus): void {
+            $updateData = collect($validated)->except('lifecycle_notes')->all();
+            $student->update($updateData);
+            $student->user?->update([
+                'name' => $student->full_name,
+                'email' => $student->email,
+            ]);
+
+            if ($previousProgram !== $student->program || $previousStatus !== $student->status) {
+                $eventType = $previousProgram !== $student->program
+                    ? 'transferred'
+                    : $student->status;
+
+                $student->lifecycleEvents()->create([
+                    'event_type' => $eventType,
+                    'previous_program' => $previousProgram,
+                    'new_program' => $student->program,
+                    'previous_status' => $previousStatus,
+                    'new_status' => $student->status,
+                    'notes' => $validated['lifecycle_notes'] ?? null,
+                ]);
+            }
+        });
 
         return redirect()->route('admin.students.show', $student)
             ->with('status', 'Student updated successfully.');

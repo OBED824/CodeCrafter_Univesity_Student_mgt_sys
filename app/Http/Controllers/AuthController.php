@@ -62,7 +62,7 @@ class AuthController extends Controller
 
             $user->assignRole('student');
 
-            Student::create([
+            $student = Student::create([
                 'student_number' => $this->generateStudentNumber(),
                 'first_name' => $validated['first_name'],
                 'last_name' => $validated['last_name'],
@@ -72,6 +72,11 @@ class AuthController extends Controller
                 'date_of_birth' => $validated['date_of_birth'] ?? null,
                 'program' => $validated['program'],
                 'user_id' => $user->id,
+            ]);
+            $student->lifecycleEvents()->create([
+                'event_type' => 'admitted',
+                'new_program' => $student->program,
+                'new_status' => $student->status,
             ]);
 
             return $user;

@@ -23,6 +23,7 @@
                 <th class="px-4 py-2 font-medium">Name</th>
                 <th class="px-4 py-2 font-medium">Student No.</th>
                 <th class="px-4 py-2 font-medium">Program</th>
+                <th class="px-4 py-2 font-medium">Status</th>
                 <th class="px-4 py-2 font-medium">Actions</th>
             </tr>
         </thead>
@@ -32,6 +33,7 @@
                     <td class="px-4 py-2">{{ $student->full_name }}</td>
                     <td class="px-4 py-2">{{ $student->student_number }}</td>
                     <td class="px-4 py-2 text-slate-500">{{ $student->program }}</td>
+                    <td class="px-4 py-2 capitalize">{{ $student->status }}</td>
                     <td class="px-4 py-2 space-x-2 whitespace-nowrap">
                         <a href="{{ route('admin.students.show', $student) }}" class="btn-outline">View</a>
                         <a href="{{ route('admin.students.edit', $student) }}" class="btn-outline">Edit</a>
@@ -43,7 +45,7 @@
                     </td>
                 </tr>
             @empty
-                <tr><td colspan="4" class="px-4 py-6 text-center text-slate-500">No students found.</td></tr>
+                <tr><td colspan="5" class="px-4 py-6 text-center text-slate-500">No students found.</td></tr>
             @endforelse
         </tbody>
     </table>

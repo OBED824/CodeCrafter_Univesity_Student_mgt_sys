@@ -26,6 +26,7 @@ class Student extends Model
         'gender',
         'date_of_birth',
         'program',
+        'status',
         'user_id',
     ];
 
@@ -46,6 +47,21 @@ class Student extends Model
     public function registrations(): HasMany
     {
         return $this->hasMany(CourseRegistration::class);
+    }
+
+    public function marks(): HasMany
+    {
+        return $this->hasMany(Mark::class);
+    }
+
+    public function attendances(): HasMany
+    {
+        return $this->hasMany(Attendance::class);
+    }
+
+    public function lifecycleEvents(): HasMany
+    {
+        return $this->hasMany(StudentLifecycleEvent::class);
     }
 
     public function user(): BelongsTo

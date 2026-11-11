@@ -10,6 +10,13 @@
     <p class="text-amber-600 mb-6">Your account is not linked to a student record yet. Contact the administrator.</p>
 @endif
 
+<div class="flex flex-wrap gap-2 mb-8">
+    <a href="{{ route('student.assignments.index') }}" class="btn-outline">View assignments</a>
+    <a href="{{ route('student.marks.index') }}" class="btn-outline">View my marks</a>
+    <a href="{{ route('student.notes.index') }}" class="btn-outline">View course notes</a>
+    <a href="{{ route('student.attendance.index') }}" class="btn-outline">Record attendance</a>
+</div>
+
 <div class="flex items-center justify-between mb-4">
     <h2 class="text-lg font-semibold">My course registrations</h2>
     <a href="{{ route('student.courses') }}" class="btn-primary">Register for a course</a>

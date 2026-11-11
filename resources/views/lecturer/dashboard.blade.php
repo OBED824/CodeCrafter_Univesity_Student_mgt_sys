@@ -13,9 +13,14 @@
                 <p class="font-semibold">{{ $course->course_code }} — {{ $course->course_name }}</p>
                 <p class="text-sm text-slate-500">{{ $course->description }}</p>
             </div>
-            <a href="{{ route('lecturer.courses.students', $course) }}" class="text-sm bg-slate-100 rounded-full px-3 py-1 whitespace-nowrap hover:bg-blue-50">
-                {{ $course->registered_students_count }} registered student(s)
-            </a>
+            <div class="flex flex-wrap items-center gap-2">
+                <a href="{{ route('lecturer.courses.assignments', $course) }}" class="btn-outline whitespace-nowrap">Assignments</a>
+                <a href="{{ route('lecturer.courses.notes', $course) }}" class="btn-outline whitespace-nowrap">Notes</a>
+                <a href="{{ route('lecturer.courses.marks', $course) }}" class="btn-outline whitespace-nowrap">Marks</a>
+                <a href="{{ route('lecturer.courses.students', $course) }}" class="text-sm bg-slate-100 rounded-full px-3 py-1 whitespace-nowrap hover:bg-blue-50">
+                    {{ $course->registered_students_count }} registered student(s)
+                </a>
+            </div>
         </div>
     @empty
         <p class="text-slate-500">You have no assigned courses yet.</p>

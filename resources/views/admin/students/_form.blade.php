@@ -10,6 +10,20 @@
         <label class="block text-sm font-medium mb-1">Program / course of study *</label>
         <input type="text" name="program" value="{{ old('program', $student?->program) }}" class="input-field" required>
     </div>
+    @if ($student)
+        <div>
+            <label class="block text-sm font-medium mb-1">Student status *</label>
+            <select name="status" class="input-field" required>
+                @foreach (['active', 'transferred', 'graduated', 'withdrawn'] as $status)
+                    <option value="{{ $status }}" @selected(old('status', $student->status) === $status)>{{ ucfirst($status) }}</option>
+                @endforeach
+            </select>
+        </div>
+        <div>
+            <label class="block text-sm font-medium mb-1">Lifecycle note</label>
+            <input type="text" name="lifecycle_notes" value="{{ old('lifecycle_notes') }}" maxlength="2000" class="input-field" placeholder="Optional reason or reference for this change">
+        </div>
+    @endif
     <div>
         <label class="block text-sm font-medium mb-1">First name *</label>
         <input type="text" name="first_name" value="{{ old('first_name', $student?->first_name) }}" class="input-field" required>

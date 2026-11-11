@@ -16,9 +16,14 @@
                 <p class="font-semibold">{{ $course->course_code }} — {{ $course->course_name }}</p>
                 <p class="text-sm text-slate-500">{{ $course->description }}</p>
             </div>
-            <a href="{{ route('lecturer.courses.students', $course) }}" class="btn-outline whitespace-nowrap">
-                {{ $course->registered_students_count }} registered student(s) →
-            </a>
+            <div class="flex flex-wrap items-center gap-2">
+                <a href="{{ route('lecturer.courses.assignments', $course) }}" class="btn-outline whitespace-nowrap">Assignments</a>
+                <a href="{{ route('lecturer.courses.notes', $course) }}" class="btn-outline whitespace-nowrap">Notes</a>
+                <a href="{{ route('lecturer.courses.marks', $course) }}" class="btn-outline whitespace-nowrap">Marks</a>
+                <a href="{{ route('lecturer.courses.students', $course) }}" class="btn-outline whitespace-nowrap">
+                    {{ $course->registered_students_count }} student(s) →
+                </a>
+            </div>
         </div>
     @endforeach
 </div>

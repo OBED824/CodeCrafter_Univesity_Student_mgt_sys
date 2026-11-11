@@ -5,6 +5,11 @@
 @section('content')
 <h1 class="text-2xl font-bold mb-2">Available Courses</h1>
 <p class="text-slate-500 mb-6">Register for a course with one click. Already-registered courses are marked.</p>
+@if ($student->status !== 'active')
+    <p class="rounded-lg border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-800 mb-6">
+        Your student status is {{ $student->status }}. Course registration is available to active students only.
+    </p>
+@endif
 
 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
     @foreach ($courses as $course)
@@ -26,7 +31,7 @@
                     @method('DELETE')
                     <button type="submit" class="btn-outline">Cancel registration</button>
                 </form>
-            @else
+            @elseif ($student->status === 'active')
                 <form method="POST" action="{{ route('student.registrations.store', $course) }}">
                     @csrf
                     <button type="submit" class="btn-primary">Register for this course</button>

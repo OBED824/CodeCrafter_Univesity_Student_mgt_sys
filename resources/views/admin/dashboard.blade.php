@@ -10,12 +10,20 @@
     <a href="{{ route('admin.courses.index') }}" class="btn-primary">Manage courses</a>
     <a href="{{ route('admin.registrations.index') }}" class="btn-primary">Manage registrations</a>
     <a href="{{ route('admin.users.index') }}" class="btn-primary">Manage user access</a>
+    <a href="{{ route('admin.roles.index') }}" class="btn-outline">Role permissions</a>
+    <a href="{{ route('admin.attendance.index') }}" class="btn-outline">Attendance log</a>
+    <a href="{{ route('admin.marks.index') }}" class="btn-outline">Gradebook</a>
+    <a href="{{ route('admin.reports.index') }}" class="btn-outline">Reports</a>
 </div>
 
-<div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
     <div class="card p-4">
-        <p class="text-sm text-slate-500">Students</p>
-        <p class="text-2xl font-bold">{{ $studentCount }}</p>
+        <p class="text-sm text-slate-500">Active students</p>
+        <p class="text-2xl font-bold">{{ $activeStudentCount }}</p>
+    </div>
+    <div class="card p-4">
+        <p class="text-sm text-slate-500">All user accounts</p>
+        <p class="text-2xl font-bold">{{ $userCount }}</p>
     </div>
     <div class="card p-4">
         <p class="text-sm text-slate-500">Courses</p>
@@ -24,6 +32,14 @@
     <div class="card p-4">
         <p class="text-sm text-slate-500">Registrations</p>
         <p class="text-2xl font-bold">{{ $registrationCount }}</p>
+    </div>
+    <div class="card p-4">
+        <p class="text-sm text-slate-500">Attendance recorded today</p>
+        <p class="text-2xl font-bold">{{ $attendanceCount }}</p>
+    </div>
+    <div class="card p-4">
+        <p class="text-sm text-slate-500">Marks in gradebook</p>
+        <p class="text-2xl font-bold">{{ $markCount }}</p>
     </div>
 </div>
 

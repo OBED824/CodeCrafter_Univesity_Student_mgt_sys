@@ -56,6 +56,10 @@ class RegistrationController extends Controller
     {
         $student = $this->currentStudent();
 
+        if ($student->status !== 'active') {
+            return back()->with('error', 'Only active students can register for courses.');
+        }
+
         if ($student->courses()->whereKey($course->id)->exists()) {
             return back()->with('error', 'You are already registered for this course.');
         }

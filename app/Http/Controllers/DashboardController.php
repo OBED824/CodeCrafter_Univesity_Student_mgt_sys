@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Attendance;
 use App\Models\Course;
 use App\Models\CourseRegistration;
+use App\Models\Mark;
 use App\Models\Student;
+use App\Models\User;
 use Illuminate\View\View;
 
 /**
@@ -23,6 +26,10 @@ class DashboardController extends Controller
             'studentCount' => Student::count(),
             'courseCount' => Course::count(),
             'registrationCount' => CourseRegistration::count(),
+            'userCount' => User::count(),
+            'attendanceCount' => Attendance::whereDate('recorded_at', today())->count(),
+            'markCount' => Mark::count(),
+            'activeStudentCount' => Student::where('status', 'active')->count(),
             'recentStudents' => Student::latest()->take(5)->get(),
         ]);
     }

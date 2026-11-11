@@ -3,8 +3,8 @@
 @section('title', 'Add Staff Account')
 
 @section('content')
-<h1 class="text-2xl font-bold mb-2">Add Staff Account</h1>
-<p class="text-sm text-slate-500 mb-6">Administrators manage student records and system data. Lecturers see only their assigned courses and students.</p>
+<h1 class="text-2xl font-bold mb-2">Add User Account</h1>
+<p class="text-sm text-slate-500 mb-6">Create administrator, lecturer, or student logins. Create a student profile first before provisioning a student login.</p>
 
 <form method="POST" action="{{ route('admin.users.store') }}" class="card p-6 space-y-4">
     @csrf
@@ -13,6 +13,7 @@
         <select id="role" name="role" class="input-field" required>
             <option value="lecturer" @selected(old('role', 'lecturer') === 'lecturer')>Lecturer</option>
             <option value="administrator" @selected(old('role') === 'administrator')>Administrator</option>
+            <option value="student" @selected(old('role') === 'student')>Student</option>
         </select>
     </div>
 
@@ -49,6 +50,17 @@
         </div>
     </div>
 
+    <div id="student-fields">
+        <label for="student_id" class="block text-sm font-medium mb-1">Student profile *</label>
+        <select id="student_id" name="student_id" class="input-field">
+            <option value="">Select an unlinked student profile</option>
+            @foreach ($students as $student)
+                <option value="{{ $student->id }}" @selected(old('student_id') == $student->id)>{{ $student->full_name }} — {{ $student->student_number }}</option>
+            @endforeach
+        </select>
+        @error('student_id')<p class="error-text">{{ $message }}</p>@enderror
+    </div>
+
     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div>
             <label for="password" class="block text-sm font-medium mb-1">Temporary password *</label>
@@ -70,14 +82,19 @@
     const roleField = document.getElementById('role');
     const lecturerFields = document.getElementById('lecturer-fields');
     const staffNumberField = document.getElementById('staff_number');
+    const studentFields = document.getElementById('student-fields');
+    const studentField = document.getElementById('student_id');
 
-    function updateLecturerFields() {
+    function updateRoleFields() {
         const isLecturer = roleField.value === 'lecturer';
+        const isStudent = roleField.value === 'student';
         lecturerFields.hidden = !isLecturer;
         staffNumberField.required = isLecturer;
+        studentFields.hidden = !isStudent;
+        studentField.required = isStudent;
     }
 
-    roleField.addEventListener('change', updateLecturerFields);
-    updateLecturerFields();
+    roleField.addEventListener('change', updateRoleFields);
+    updateRoleFields();
 </script>
 @endsection
